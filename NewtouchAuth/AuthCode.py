@@ -28,11 +28,12 @@ class AuthCode:
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(parsedCookieJarFile))
         urllib2.install_opener(self.opener)
 
-    def kaoQin(self, authCode):
-        self.url = 'http://10.31.215.211:8080/attendance/record/save'
-        self.postData = 'captcha=' + authCode + '&cpuID=7cfa5e5c6559a281ceb2ee899278e722&hddID=a4a651abf73599c037d429e289620875&' \
-                                                'macID=92c29457a7fd80f0c5a5a284a221f47b%3B184f8ce29a433e23501b10b355d837f1%3B'
-        req = urllib2.Request(self.url, self.postData)
+    def kaoQin(self, postUrl, postData):
+        # self.url = 'http://10.31.215.211:8080/attendance/record/save'
+        # self.postData = 'captcha=' + authCode + '&cpuID=7cfa5e5c6559a281ceb2ee899278e722&hddID=a4a651abf73599c037d429e289620875&' \
+        #                                         'macID=92c29457a7fd80f0c5a5a284a221f47b%3B184f8ce29a433e23501b10b355d837f1%3B'
+        print "doRequest url:", postUrl, "\n postData:", postData
+        req = urllib2.Request(postUrl, postData)
         self.loadCookie()
         self.opener.addheaders = [('Host', '10.31.215.211:8080'),
                                   ('User-Agent',
