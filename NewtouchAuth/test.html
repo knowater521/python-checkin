@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>考勤</title>
+    <link rel="stylesheet" href="/attendance/css/main.css"/>
+    <link rel="shortcut icon" href="/attendance/images/favicon.ico" type="image/x-icon"/>
+    <meta http-equiv="expires" content="0"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="layout" content="main"/>
+
+    <script type="text/javascript">
+        <!--
+        window.onload = function () {
+
+
+            setTimeout("window.location.href = \"/attendance/record/record\";", 5000);
+
+        }
+        -->
+    </script>
+
+    <script type="text/javascript" src="/attendance/js/application.js"></script>
+
+    <script type='text/javascript' src='/attendance/plugins/richui-0.8/js/reflection/reflection.js'></script>
+    <script type="text/javascript">
+        if (top.location != self.location) {
+            top.location = self.location;
+        }
+    </script>
+</head>
+
+<body oncontextmenu="return false;" onselectstart="return false;" oncopy="return false;" oncut="return false;"
+      onpaste="return false;">
+<div id="spinner" class="spinner" style="display:none;">
+    <img src="/attendance/images/spinner.gif" alt="Spinner"/>
+</div>
+<div class="logo"><img src='/attendance/images/newtouch_logo.gif' alt='Newtouch' class='reflect rheight50 ropacity80'/>
+</div>
+<noscript>
+    <iframe src="*"></iframe>
+</noscript>
+
+<div class="body">
+    <center>
+
+        <div class="message">本次考勤失败！原因：无法确定用户！请确认是否已经注册了？</div>
+        <br/>
+
+        <div class="message">五秒后自动跳转。</div>
+    </center>
+    <div style="display:none">
+        <form id="form" method="post" action="/attendance/j_acegi_security_login">
+            <input id="j_username" name="j_username" type="hidden" value=""/>
+            <input id="j_password" name="j_password" type="hidden" value=""/>
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>

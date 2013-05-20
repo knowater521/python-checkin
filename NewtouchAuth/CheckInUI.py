@@ -5,6 +5,7 @@ from Tkinter import *
 
 from PIL import Image, ImageTk
 from Config import *
+from HtmlParserUtil import *
 
 from AuthCode import *
 
@@ -26,14 +27,16 @@ class CheckInUI(Frame):
                 print message
                 self.consoleText.insert('end', message, ("TEXTGREEN"))
                 postData = data + "&captcha=" + inputAuthCode
-                self.authCode.kaoQin(self.config.POSTURL, postData)
+                html = self.authCode.kaoQin(self.config.POSTURL, postData)
+                message = parseMessage(html)
+                self.consoleText.tag_configure('TEXTERROR', foreground='red')
+                self.consoleText.insert('end', message, ("TEXTERROR"))
             except Exception, e:
                 self.consoleText.tag_configure('TEXTERROR', foreground='red')
                 errorMsg = '####提交异常##### ', e.message, '\n'
                 self.consoleText.insert('end', errorMsg, ("TEXTERROR"))
                 print 'Exception:', e
-
-        print 'hello'
+                # print 'hello'
 
     def getAuthCode(self):
         self.consoleText.insert('end', '获取验证码\n')

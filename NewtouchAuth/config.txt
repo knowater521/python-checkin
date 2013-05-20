@@ -1,9 +1,9 @@
 [USER]
-name = 阳葵|阳葵2
-cpuID = 7cfa5e5c6559a281ceb2ee899278e722|7cfa5e5c6559a281ceb2ee899278e722
-hddID = a4a651abf73599c037d429e289620875|a4a651abf73599c037d429e289620875
-macID = 92c29457a7fd80f0c5a5a284a221f47b%3B184f8ce29a433e23501b10b355d837f1%3B|92c29457a7fd80f0c5a5a284a221f47b%3B184f8ce29a433e23501b10b355d837f1%3B
+name = 阳葵
+cpuID = 7cfa5e5c6559a281ceb2ee899278e722
+hddID = 3f536c8f802c21a209bd7f251c757c97
+macID = 167f9ad9992401fe068939058362712e%3B69226a927d029bb91de4f740182c0bf7%3B
 
 [URL]
-authCodeUrl = http://captcha.qq.com/getimage?aid=1007901&r=0.4029927267692983
-postUrl= http://captcha.qq.com/getimage?aid=1007901&r=0.4029927267692983
+authCodeUrl = http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha
+postUrl= http://10.31.215.211:8080/attendance/register/save

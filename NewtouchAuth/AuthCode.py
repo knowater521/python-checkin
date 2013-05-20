@@ -50,10 +50,10 @@ class AuthCode:
         response = self.opener.open(req)
         print 'end request'
         the_page = response.read()
-        print the_page
+        return the_page
 
     def __main__(self):
         authCode = AuthCode()
-        authCode.saveImage("http://captcha.qq.com/getimage?aid=1007901&r=0.4029927267692983")
+        authCode.saveImage("https://dynamic.12306.cn/otsweb/passCodeAction.do?rand=sjrand&0.15712031070142984")
 
 
