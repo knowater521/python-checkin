@@ -16,8 +16,8 @@ class AuthCode:
         resp = self.opener.open(url)
         print 'mozillaCookieJar:', mozillaCookieJar
         mozillaCookieJar.save(self.cookieFileName, True, False)
-        print 'save cookie success!'
         image = resp.read()
+        print 'image read ok'
         with open(self.imageFilename, "wb") as jpg:
             jpg.write(image)
         print "image save success!"
@@ -29,9 +29,6 @@ class AuthCode:
         urllib2.install_opener(self.opener)
 
     def kaoQin(self, postUrl, postData):
-        # self.url = 'http://10.31.215.211:8080/attendance/record/save'
-        # self.postData = 'captcha=' + authCode + '&cpuID=7cfa5e5c6559a281ceb2ee899278e722&hddID=a4a651abf73599c037d429e289620875&' \
-        #                                         'macID=92c29457a7fd80f0c5a5a284a221f47b%3B184f8ce29a433e23501b10b355d837f1%3B'
         print "doRequest url:", postUrl, "\n postData:", postData
         req = urllib2.Request(postUrl, postData)
         self.loadCookie()
@@ -54,6 +51,7 @@ class AuthCode:
 
     def __main__(self):
         authCode = AuthCode()
-        authCode.saveImage("https://dynamic.12306.cn/otsweb/passCodeAction.do?rand=sjrand&0.15712031070142984")
+        authCode.saveImage("http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha")
 
-
+# authCode = AuthCode()
+# authCode.saveImage("http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha")

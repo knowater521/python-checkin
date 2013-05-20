@@ -3,6 +3,7 @@ __author__ = 'YangKui'
 
 import ConfigParser
 import re
+import os
 
 
 class UserInfo:
@@ -16,9 +17,29 @@ class UserInfo:
 class Config:
     configFileName = "config.txt"
 
+    def writeConfigFile(self):
+        print 'No config file found !Ready create default config file'
+        f = file(self.configFileName, 'w')
+        text = ['[USER]',
+                'name = 阳葵',
+                'cpuID = 7cfa5e5c6559a281ceb2ee899278e722',
+                'hddID = 3f536c8f802c21a209bd7f251c757c97',
+                'macID = 167f9ad9992401fe068939058362712e%3B69226a927d029bb91de4f740182c0bf7%3B',
+                '[URL]',
+                'authCodeUrl = http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha',
+                'postUrl= http://10.31.215.211:8080/attendance/register/save']
+        for x in text:
+            f.write(x + "\n")
+        f.close()
+        print 'default config file write ok!'
+
     def __init__(self):
         print '####starting load config.txt####'
+        if (not os.path.isfile(self.configFileName)):
+            self.writeConfigFile()
+
         f = file(self.configFileName)
+
         ConfigParser.RawConfigParser.OPTCRE = re.compile(r'(?P<option>[^=\s][^=]*)\s*(?P<vi>[=])\s*(?P<value>.*)$')
         self.CONFIG = ConfigParser.ConfigParser()
         self.CONFIG.read(self.configFileName)

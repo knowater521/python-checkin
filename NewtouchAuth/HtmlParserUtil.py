@@ -8,6 +8,9 @@ def parseMessage(html):
     if (found):
         message = found.group("message")
         return message
+    else:
+        print 'Not Found'
+        print html
     return "None"
 
     # f = open("test.html")
