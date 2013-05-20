@@ -27,7 +27,7 @@ class Config:
                 'macID = 167f9ad9992401fe068939058362712e%3B69226a927d029bb91de4f740182c0bf7%3B',
                 '[URL]',
                 'authCodeUrl = http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha',
-                'postUrl= http://10.31.215.211:8080/attendance/register/save']
+                'postUrl= http://10.31.215.211:8080/attendance/record/save']
         for x in text:
             f.write(x + "\n")
         f.close()
