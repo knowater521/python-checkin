@@ -4,20 +4,20 @@ import re
 
 
 def parseMessage(html):
-    found = re.search('<div\s+?class="message">(?P<message>.+?)</div>', html)
+    found = re.search('<div\s.*?class="message">(?P<message>.+?)</div>', html)
     if (found):
         message = found.group("message")
         return message
     else:
         print 'Not Found'
-        print html
+        # print html
     return "None"
 
     # f = open("test.html")
     # html = ""
     # while True:
     #     l = f.readline()
-    #     print l
+    #     # print l
     #     if len(l)==0:
     #         break
     #     html +=l

@@ -28,7 +28,7 @@ class CheckInUI(Frame):
                 self.consoleText.insert('end', message, ("TEXTGREEN"))
                 postData = data + "&captcha=" + inputAuthCode
                 html = self.authCode.kaoQin(self.config.POSTURL, postData)
-                message = parseMessage(html)
+                message = parseMessage(html), "\n"
                 self.consoleText.tag_configure('TEXTERROR', foreground='red')
                 self.consoleText.insert('end', message, ("TEXTERROR"))
             except Exception, e:

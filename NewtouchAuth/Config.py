@@ -4,14 +4,24 @@ __author__ = 'YangKui'
 import ConfigParser
 import re
 import os
+import hashlib
+import time
 
 
 class UserInfo:
-    def __init__(self, name, cpuID, hddID, macID):
-        self.data = "cpuID=" + cpuID + "&hddID=" + hddID + "&macID=" + macID
+    def __init__(self, name, cpuID, hddID, macID1, macID2):
+        t = time.strftime('%m-%d', time.localtime(time.time()))
+        c = self.md5(cpuID)
+        h = self.md5(hddID + t)
+        m1 = self.md5(macID1 + t)
+        m2 = self.md5(macID2 + t)
+        self.data = "cpuID=" + c + "&hddID=" + h + "&macID=" + m1 + "%3B" + m2 + "%3B"
 
     def getData(self):
         return self.data
+
+    def md5(self, string):
+        return hashlib.md5(string).hexdigest().lower()
 
 
 class Config:
@@ -22,9 +32,10 @@ class Config:
         f = file(self.configFileName, 'w')
         text = ['[USER]',
                 'name = 阳葵',
-                'cpuID = 7cfa5e5c6559a281ceb2ee899278e722',
-                'hddID = 3f536c8f802c21a209bd7f251c757c97',
-                'macID = 167f9ad9992401fe068939058362712e%3B69226a927d029bb91de4f740182c0bf7%3B',
+                'cpuID = BFEBFBFF000206A7',
+                'hddID = 2085256266',
+                'macID1 = F0:DE:F1:70:C5:64',
+                'macID2 = 8C:A9:82:B7:7C:E6',
                 '[URL]',
                 'authCodeUrl = http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha',
                 'postUrl= http://10.31.215.211:8080/attendance/record/save']
@@ -47,10 +58,12 @@ class Config:
         USERNAME = self.CONFIG.get('USER', 'name').split("|")
         CPUID = self.CONFIG.get('USER', 'cpuID').split("|")
         HDDID = self.CONFIG.get('USER', 'hddID').split("|")
-        MACID = self.CONFIG.get('USER', 'macID').split("|")
+        MACID1 = self.CONFIG.get('USER', 'macID1').split("|")
+        MACID2 = self.CONFIG.get('USER', 'macID2').split("|")
+
         i = 0
         for key in USERNAME:
-            userInfo = UserInfo(key, CPUID[i], HDDID[i], MACID[i])
+            userInfo = UserInfo(key, CPUID[i], HDDID[i], MACID1[i], MACID2[i])
             self.USER[key] = userInfo
             i = i + 1
         self.AUTHCODEURL = self.CONFIG.get('URL', 'authCodeUrl')

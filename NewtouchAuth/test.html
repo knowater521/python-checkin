@@ -8,13 +8,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main"/>
 
+    <script type="text/javascript" src="/attendance/js/AC_OETags.js"></script>
+
+    <script type="text/javascript" src="/attendance/js/system/encipher.js"></script>
+
     <script type="text/javascript">
         <!--
-        window.onload = function () {
+        document.onkeydown = function () {
+            if (event.keyCode == 13) {
+                document.getElementById("button").click();
 
+                return false;
+            }
+        }
 
-            setTimeout("window.location.href = \"/attendance/record/record\";", 5000);
+        function onCheck(element) {
+            return document.getElementById(element).value;
+        }
 
+        function onSave() {
+            return record.save('无法运行ActiveX，请保证浏览器安全设置允许ActiveX执行！');
         }
         -->
     </script>
@@ -40,20 +53,86 @@
     <iframe src="*"></iframe>
 </noscript>
 
+<div style="margin:0px;overflow:hidden;">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+            id="record" width="0" height="0"
+            codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+        <param name="movie" value="/attendance/flex/record.swf"/>
+        <param name="quality" value="high"/>
+        <param name="bgcolor" value="#869ca7"/>
+        <param name="allowScriptAccess" value="sameDomain"/>
+        <embed src="/attendance/flex/record.swf" quality="high" bgcolor="#869ca7"
+               width="0" height="0" name="record" align="middle"
+               play="true"
+               loop="false"
+               quality="high"
+               allowScriptAccess="sameDomain"
+               type="application/x-shockwave-flash"
+               pluginspage="http://www.adobe.com/go/getflashplayer">
+        </embed>
+    </object>
+</div>
 <div class="body">
-    <center>
+    <h1>考勤提交</h1>
 
-        <div class="message">本次考勤失败！原因：无法确定用户！请确认是否已经注册了？</div>
-        <br/>
+    <div class="message">验证码错误！请重新输入！当前系统时间为2013-05-22 14:50:18。</div>
 
-        <div class="message">五秒后自动跳转。</div>
-    </center>
-    <div style="display:none">
-        <form id="form" method="post" action="/attendance/j_acegi_security_login">
-            <input id="j_username" name="j_username" type="hidden" value=""/>
-            <input id="j_password" name="j_password" type="hidden" value=""/>
-        </form>
-    </div>
+
+    <form action="/attendance/record/save" method="post">
+        <div class="dialog">
+            <table style="border:none;width:100px;">
+                <tr>
+                    <td>
+                        <img src="/attendance/jcaptcha/jpeg/imageCaptcha" id="imageCaptcha" width="140px"
+                             height="50px"/>
+                    </td>
+                    <td>
+                        <p><input type="text" id="captcha" name="captcha" value=""/></p>
+                        <br/>
+                        <a href="#"
+                           onclick="javascript:var element = document.getElementById('imageCaptcha');element.src = element.src + '?captcha=image';">看不清，点击换一张。</a>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="border:none;">
+                <tbody>
+
+                <tr class="prop" style="display:none">
+                    <td valign="top" class="name">
+                        <label for="cpuID">Cpu ID:</label>
+                    </td>
+                    <td valign="top" class="value ">
+                        <input type="text" id="cpuID" name="cpuID" value=""/>
+                    </td>
+                </tr>
+
+                <tr class="prop" style="display:none">
+                    <td valign="top" class="name">
+                        <label for="hddID">Hdd ID:</label>
+                    </td>
+                    <td valign="top" class="value ">
+                        <input type="text" id="hddID" name="hddID" value=""/>
+                    </td>
+                </tr>
+
+                <tr class="prop" style="display:none">
+                    <td valign="top" class="name">
+                        <label for="macID">Mac ID:</label>
+                    </td>
+                    <td valign="top" class="value ">
+                        <input type="text" id="macID" name="macID" value=""/>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="buttons">
+            <span class="button"><input id="button" class="save" type="button" value="提交"
+                                        onclick="javascript:onSave();"/></span>
+        </div>
+    </form>
 </div>
 
 </body>
