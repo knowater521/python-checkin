@@ -1,8 +1,9 @@
-__author__ = 'YangKui'
 #_*_encoding:utf-8_*_
+__author__ = 'YangKui'
+
 
 from Tkinter import *
-
+from LogFile import LogFile
 from PIL import Image, ImageTk
 from Config import *
 from HtmlParserUtil import *
@@ -27,7 +28,7 @@ class CheckInUI(Frame):
                 print message
                 self.consoleText.insert('end', message, ("TEXTGREEN"))
                 postData = data + "&captcha=" + inputAuthCode
-                html = self.authCode.kaoQin(self.config.POSTURL, postData)
+                html = self.authCode.kaoQin(self.config.POSTURL, postData,self.config.HOST)
                 message = parseMessage(html), "\n"
                 self.consoleText.tag_configure('TEXTERROR', foreground='red')
                 self.consoleText.insert('end', message, ("TEXTERROR"))
@@ -54,6 +55,7 @@ class CheckInUI(Frame):
         self.columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky=(N, W, E, S))
         self.createWidgets()
+        self.log =  LogFile()
 
     def createWidgets(self):
         # # self.loadConfig()

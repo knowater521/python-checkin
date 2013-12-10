@@ -1,5 +1,6 @@
 __author__ = 'YangKui'
 #_*_encoding:utf-8_*_
+from LogFile import LogFile
 
 import ConfigParser
 import re
@@ -28,7 +29,7 @@ class Config:
     configFileName = "config.txt"
 
     def writeConfigFile(self):
-        print 'No config file found !Ready create default config file'
+        self.log.info('No config file found !Ready create default config file')
         f = file(self.configFileName, 'w')
         text = ['[USER]',
                 'name = 阳葵',
@@ -37,15 +38,17 @@ class Config:
                 'macID1 = F0:DE:F1:70:C5:64',
                 'macID2 = 8C:A9:82:B7:7C:E6',
                 '[URL]',
-                'authCodeUrl = http://10.31.215.211:8080/attendance/jcaptcha/jpeg/imageCaptcha',
-                'postUrl= http://10.31.215.211:8080/attendance/record/save']
+                'authCodeUrl = /attendance/jcaptcha/jpeg/imageCaptcha',
+                'postUrl= /attendance/record/save',
+                'host=www.kq.com:8080']
         for x in text:
             f.write(x + "\n")
         f.close()
-        print 'default config file write ok!'
+        self.log.info('default config file write ok!')
 
     def __init__(self):
-        print '####starting load config.txt####'
+        self.log = LogFile()
+        self.log.info('####starting load config.txt####')
         if (not os.path.isfile(self.configFileName)):
             self.writeConfigFile()
 
@@ -66,17 +69,19 @@ class Config:
             userInfo = UserInfo(key, CPUID[i], HDDID[i], MACID1[i], MACID2[i])
             self.USER[key] = userInfo
             i = i + 1
-        self.AUTHCODEURL = self.CONFIG.get('URL', 'authCodeUrl')
-        self.POSTURL = self.CONFIG.get('URL', 'postUrl')
+        self.HOST = self.CONFIG.get('URL','host')
+        self.AUTHCODEURL ='http://'+self.HOST+ self.CONFIG.get('URL', 'authCodeUrl')
+        self.POSTURL = 'http://'+self.HOST+self.CONFIG.get('URL', 'postUrl')
+
 
         for key, value in self.USER.items():
-            print "USERNAME:", key, value.data
+            str = "USERNAME:", key, value.data
+            self.log.info(str)
 
         # print self.USER['阳葵'].data
-
-        print 'authCodeUrl:', self.AUTHCODEURL
-        print 'postUrl:', self.POSTURL
-        print '####end load config.txt####'
+        self.log.info('authCodeUrl:' + self.AUTHCODEURL)
+        self.log.info('postUrl:' + self.POSTURL)
+        self.log.info('####end load config.txt####')
 
 # config = Config()
 

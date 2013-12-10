@@ -28,11 +28,11 @@ class AuthCode:
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(parsedCookieJarFile))
         urllib2.install_opener(self.opener)
 
-    def kaoQin(self, postUrl, postData):
+    def kaoQin(self, postUrl, postData,host):
         print "doRequest url:", postUrl, "\n postData:", postData
         req = urllib2.Request(postUrl, postData)
         self.loadCookie()
-        self.opener.addheaders = [('Host', '10.31.215.211:8080'),
+        self.opener.addheaders = [('Host', host),
                                   ('User-Agent',
                                    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/6.0; .NET4.0E; .NET4.0C)'),
                                   ('Accept',
@@ -41,7 +41,7 @@ class AuthCode:
                                   ('Accept-Encoding', 'gzip, deflate'),
                                   ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7'),
                                   ('Connection', 'keep-alive'),
-                                  ('Referer', 'http://10.31.215.211:8080/attendance/record/record')]
+                                  ('Referer', 'http://'+host+'/attendance/record/record')]
 
         print 'starting request'
         response = self.opener.open(req)

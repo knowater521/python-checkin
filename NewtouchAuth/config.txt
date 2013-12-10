@@ -1,0 +1,10 @@
+[USER]
+name = 阳葵
+cpuID = BFEBFBFF000206A7
+hddID = 2085256266
+macID1 = F0:DE:F1:70:C5:64
+macID2 = 8C:A9:82:B7:7C:E6
+[URL]
+authCodeUrl = /attendance/jcaptcha/jpeg/imageCaptcha
+postUrl= /attendance/record/save
+host=www.kq.com:8080
